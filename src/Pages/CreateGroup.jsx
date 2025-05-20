@@ -21,7 +21,7 @@ const CreateGroup = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="bg-gradient-to-br from-pink-50 via-indigo-50 to-white rounded-2xl shadow-xl p-10 border border-gray-100">
+      <div className="bg-gradient-to-br from-pink-50 via-indigo-50 to-white rounded-2xl shadow-xl p-10 border border-gray-100 mt-12">
         <div className="text-center mb-10">
           <h1 className="text-4xl font-extrabold text-gray-900">Create a New Group</h1>
           <p className="mt-3 text-lg text-gray-600">Unite people around your favorite hobby with a vibrant new group</p>

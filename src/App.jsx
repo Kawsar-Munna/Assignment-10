@@ -1,21 +1,41 @@
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Home from "./Pages/Home";
-import { Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer";
+import Home from "./Pages/Home";
 import CreateGroup from "./Pages/CreateGroup";
 import Login from "./Pages/Login";
+import Register from "./Pages/Register";
+import AuthProvider from "./contexts/AuthContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import PrivateRoute from "./routes/PrivateRoute";
+
+// Optional PrivateRoute Wrapper
+
 
 function App() {
   return (
     <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/create-group" element={<CreateGroup />} />  
-        <Route path="/login" element={<Login />} />
-      </Routes>
-      <Footer />
+      <AuthProvider>
+        <Navbar />
+        <div className="pt-16 min-h-screen">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/createGroup"
+              element={
+                <PrivateRoute>
+                  <CreateGroup />
+                </PrivateRoute>
+              }
+            />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
+        </div>
+        <Footer />
+        <ToastContainer />
+      </AuthProvider>
     </Router>
   );
 }
