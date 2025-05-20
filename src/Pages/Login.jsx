@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, GithubAuthProvider } from "firebase/auth";
 import app from "../firebase/firebase.config";
 import { toast } from "react-toastify";
 
 const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
+const githubProvider = new GithubAuthProvider();
 
 const Login = () => {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -20,7 +21,7 @@ const Login = () => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, form.email, form.password);
-      toast.success("Login successful");
+      toast.success("Logged in successfully!");
       navigate(location.state?.from?.pathname || "/");
     } catch (err) {
       toast.error(err.message);
@@ -29,8 +30,18 @@ const Login = () => {
 
   const handleGoogleLogin = async () => {
     try {
-      await signInWithPopup(auth, provider);
-      toast.success("Google Login successful");
+      await signInWithPopup(auth, googleProvider);
+      toast.success("Google login successful!");
+      navigate(location.state?.from?.pathname || "/");
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
+  const handleGitHubLogin = async () => {
+    try {
+      await signInWithPopup(auth, githubProvider);
+      toast.success("GitHub login successful!");
       navigate(location.state?.from?.pathname || "/");
     } catch (err) {
       toast.error(err.message);
@@ -38,33 +49,71 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-100 p-4">
-      <form onSubmit={handleLogin} className="bg-white p-6 rounded shadow-md w-full max-w-md space-y-4">
-        <h2 className="text-2xl font-bold text-center">Login</h2>
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          className="input input-bordered w-full"
-          value={form.email}
-          onChange={handleInputChange}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          className="input input-bordered w-full"
-          value={form.password}
-          onChange={handleInputChange}
-          required
-        />
-        <button type="submit" className="btn btn-primary w-full">Login</button>
-        <button type="button" onClick={handleGoogleLogin} className="btn btn-outline w-full">
-          Login with Google
-        </button>
-        <p className="text-sm text-center">Don't have an account? <Link to="/register" className="text-blue-500">Register</Link></p>
-      </form>
+    <div className="min-h-screen bg-gradient-to-r from-purple-300 via-pink-300 to-red-300 flex items-center justify-center px-4">
+      <div className="bg-white shadow-2xl rounded-xl p-8 md:p-12 max-w-md w-full">
+        <h2 className="text-3xl font-bold text-center mb-6 text-purple-700">Welcome Back!</h2>
+        <form onSubmit={handleLogin} className="space-y-4">
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter your email"
+            value={form.email}
+            onChange={handleInputChange}
+            className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400"
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter your password"
+            value={form.password}
+            onChange={handleInputChange}
+            className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400"
+            required
+          />
+          <button
+            type="submit"
+            className="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition"
+          >
+            Login
+          </button>
+        </form>
+
+        <div className="mt-6 text-center text-sm text-gray-500">Or login with</div>
+
+        <div className="flex flex-col md:flex-row gap-4 mt-3">
+          <button
+            onClick={handleGoogleLogin}
+            className="flex items-center justify-center w-full border border-gray-300 py-2 rounded-lg hover:bg-gray-100 transition"
+          >
+            <img
+              src="https://www.svgrepo.com/show/475656/google-color.svg"
+              alt="Google"
+              className="w-5 h-5 mr-2"
+            />
+            Google
+          </button>
+
+          <button
+            onClick={handleGitHubLogin}
+            className="flex items-center justify-center w-full border border-gray-300 py-2 rounded-lg hover:bg-gray-100 transition"
+          >
+            <img
+              src="https://www.svgrepo.com/show/475654/github-color.svg"
+              alt="GitHub"
+              className="w-5 h-5 mr-2"
+            />
+            GitHub
+          </button>
+        </div>
+
+        <p className="text-center text-sm mt-6">
+          Don't have an account?{" "}
+          <Link to="/register" className="text-purple-600 hover:underline">
+            Register here
+          </Link>
+        </p>
+      </div>
     </div>
   );
 };
