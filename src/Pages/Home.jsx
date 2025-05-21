@@ -9,8 +9,9 @@ const Home = () => {
       <HeroSlider />
       <FeaturedGroups />
       <HowItWorks />
-      <PopularCategories />
       <CTASection />
+      <PopularCategories />
+     
       
       {/* More sections like Featured Groups, How It Works, etc. will come here */}
     </div>

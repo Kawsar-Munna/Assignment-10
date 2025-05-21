@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import PrivateRoute from "./routes/PrivateRoute";
 import MyGroups from "./Pages/MyGroups";
 import AllGroups from "./Pages/AllGroups";
+import GroupDetails from "./Pages/GroupDetails";
 
 // Optional PrivateRoute Wrapper
 
@@ -42,6 +43,8 @@ function App() {
               }
             />
             <Route path="/groups" element={<AllGroups />} />
+          
+            <Route path="/group/:id" element={<GroupDetails />} />
           </Routes>
         </div>
         <Footer />
