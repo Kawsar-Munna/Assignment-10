@@ -9,6 +9,8 @@ import AuthProvider from "./contexts/AuthContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PrivateRoute from "./routes/PrivateRoute";
+import MyGroups from "./Pages/MyGroups";
+import AllGroups from "./Pages/AllGroups";
 
 // Optional PrivateRoute Wrapper
 
@@ -31,6 +33,15 @@ function App() {
             />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route
+              path="/myGroups"
+              element={
+                <PrivateRoute>
+                  <MyGroups />
+                </PrivateRoute>
+              }
+            />
+            <Route path="/groups" element={<AllGroups />} />
           </Routes>
         </div>
         <Footer />
