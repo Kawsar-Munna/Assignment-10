@@ -54,26 +54,26 @@ const GroupCard = ({ group }) => {
   
 
   return (
-    <div className="bg-white shadow-md rounded-xl overflow-hidden flex flex-col">
+    <div className="bg-white shadow-md rounded-xl overflow-hidden flex flex-col dark:bg-gray-800">
       {/* Image */}
       <img src={group.image} alt={group.name} className="w-full h-40 object-cover" />
 
       {/* Content */}
-      <div className="p-4 flex flex-col justify-between flex-1">
+      <div className="p-4 flex flex-col justify-between flex-1 dark:bg-gray-800 dark:text-white">
         {/* Tag + Members */}
         <div className="flex items-center justify-between mb-2">
-          <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
+          <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full dark:bg-blue-800 dark:text-white">
             {group.category}
           </span>
-          <div className="flex items-center text-sm text-gray-600 gap-1">
+          <div className="flex items-center text-sm text-gray-600 gap-1 dark:text-gray-300">
             <Users className="w-4 h-4" />
             {group.joinedMembers?.length || 0} members
           </div>
         </div>
 
         {/* Title + Description */}
-        <h3 className="text-lg font-semibold text-gray-900">{group.name}</h3>
-        <p className="text-sm text-gray-600 mt-1 line-clamp-2">{group.description}</p>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{group.name}</h3>
+        <p className="text-sm text-gray-600 mt-1 line-clamp-2 dark:text-gray-300">{group.description}</p>
 
         {/* Avatars + Button */}
         <div className="flex justify-between items-center mt-4">
@@ -119,7 +119,7 @@ const GroupCard = ({ group }) => {
       {/* See Details */}
       <Link
         to={`/group/${group._id}`}
-        className="block text-center py-2 text-sm font-medium text-purple-700 hover:underline border-t border-gray-100"
+        className="block text-center py-2 text-sm font-medium text-purple-700 hover:underline border-t border-gray-100 dark:border-gray-700 dark:text-white"
       >
         See Details
       </Link>

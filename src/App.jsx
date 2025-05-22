@@ -12,9 +12,9 @@ import PrivateRoute from "./routes/PrivateRoute";
 import MyGroups from "./Pages/MyGroups";
 import AllGroups from "./Pages/AllGroups";
 import GroupDetails from "./Pages/GroupDetails";
-
+import UpdateGroup from "./Pages/UpdateGroup";
 // Optional PrivateRoute Wrapper
-
+import NotFound from "./Pages/NotFound";
 
 function App() {
   return (
@@ -45,6 +45,15 @@ function App() {
             <Route path="/groups" element={<AllGroups />} />
           
             <Route path="/group/:id" element={<GroupDetails />} />
+            <Route
+              path="/updateGroup/:id"
+              element={
+                <PrivateRoute>
+                  <UpdateGroup />
+                </PrivateRoute>
+              }
+            />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
         <Footer />

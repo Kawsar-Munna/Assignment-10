@@ -15,24 +15,24 @@ const categories = [
   
   const PopularCategories = () => {
     return (
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">Popular Categories</h2>
-            <p className="mt-4 text-xl text-gray-600 max-w-3xl mx-auto">
+            <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl dark:text-white">Popular Categories</h2>
+            <p className="mt-4 text-xl text-gray-600 max-w-3xl mx-auto dark:text-gray-300">
               Explore groups by category and find the perfect community for your interests.
             </p>
           </div>
   
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 dark:bg-gray-900">
             {categories.map((cat, index) => (
               <div key={index} className="group">
-                <div className={`aspect-square ${cat.bg} ${cat.hover} rounded-lg flex flex-col items-center justify-center p-6 transition-all`}>
-                  <div className={`w-12 h-12 flex items-center justify-center ${cat.color} mb-3`}>
+                <div className={`aspect-square ${cat.bg} ${cat.hover} rounded-lg flex flex-col items-center justify-center p-6 transition-all dark:bg-gray-800 dark:text-white`}>
+                  <div className={`w-12 h-12 flex items-center justify-center ${cat.color} mb-3 dark:bg-gray-800 dark:text-white`}>
                     <i className={`${cat.icon} ri-2x`}></i>
                   </div>
-                  <h3 className="text-lg font-medium text-gray-900">{cat.name}</h3>
-                  <p className="text-sm text-gray-600 mt-1">{cat.count} groups</p>
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-white">{cat.name}</h3>
+                  <p className="text-sm text-gray-600 mt-1 dark:text-gray-300">{cat.count} groups</p>
                 </div>
               </div>
             ))}

@@ -32,17 +32,17 @@ const HeroSlider = () => {
   }, []);
 
   return (
-    <div className="relative h-[500px] overflow-hidden mt-[-100px]">
+    <div className="relative h-[500px] overflow-hidden mt-[-100px] dark:bg-white">
       {slides.map((slide, index) => (
         <div
           key={index}
           className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${index === current ? 'opacity-100 z-20' : 'opacity-0 z-10'}`}
         >
           <div
-            className="absolute inset-0 bg-cover bg-center"
+            className="absolute inset-0 bg-cover bg-center dark:bg-white"
             style={{ backgroundImage: `url(${slide.image})` }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-gray-900/70 to-gray-900/30 z-10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-gray-900/70 to-gray-900/30 z-10 " />
           <div className="absolute inset-0 z-20 flex items-center">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
               <div className="max-w-lg">
@@ -63,7 +63,7 @@ const HeroSlider = () => {
           {slides.map((_, idx) => (
             <div
               key={idx}
-              className={`w-3 h-3 rounded-full cursor-pointer transition ${idx === current ? 'bg-white' : 'bg-white/50'}`}
+              className={`w-3 h-3 rounded-full cursor-pointer transition ${idx === current ? 'bg-white' : 'bg-white/50 dark:bg-white/50'}`}
               onClick={() => setCurrent(idx)}
             />
           ))}

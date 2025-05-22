@@ -1,13 +1,14 @@
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../contexts/AuthContext";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const MyGroups = () => {
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const [createdGroups, setCreatedGroups] = useState([]);
   const [joinedGroups, setJoinedGroups] = useState([]);
 
-  // Fetch Created Groups
   useEffect(() => {
     if (user?.email) {
       fetch(`http://localhost:5000/api/my-groups?email=${user.email}`)
@@ -17,7 +18,6 @@ const MyGroups = () => {
     }
   }, [user]);
 
-  // Fetch Joined Groups
   useEffect(() => {
     if (user?.email) {
       fetch(`http://localhost:5000/api/joined-groups?email=${user.email}`)
@@ -27,12 +27,11 @@ const MyGroups = () => {
     }
   }, [user]);
 
-  // Handle Delete Created Group
   const handleDelete = async (id) => {
     if (!confirm("Are you sure you want to delete this group?")) return;
 
     const res = await fetch(`http://localhost:5000/api/group/${id}`, {
-      method: "DELETE"
+      method: "DELETE",
     });
     const data = await res.json();
     if (data.deletedCount > 0) {
@@ -42,15 +41,16 @@ const MyGroups = () => {
       toast.error("Delete failed");
     }
   };
+
   const handleLeave = async (id) => {
     if (!confirm("Leave this group?")) return;
-  
+
     const res = await fetch(`http://localhost:5000/api/group/leave/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: user.email })
+      body: JSON.stringify({ email: user.email }),
     });
-  
+
     const data = await res.json();
     if (data.modifiedCount > 0) {
       toast.success("Left the group!");
@@ -59,41 +59,48 @@ const MyGroups = () => {
       toast.error("Could not leave the group");
     }
   };
-  
+
   return (
-    <div className="max-w-6xl mx-auto p-4 mt-6 space-y-12">
-      {/* 🔹 Created Groups */}
+    <div className="max-w-7xl mx-auto p-4 mt-6 space-y-16">
+      {/* Created Groups */}
       <div>
-        <h2 className="text-2xl font-bold mb-4 text-purple-700">Groups I Created</h2>
+        <h2 className="text-3xl font-bold text-purple-800 border-b-2 border-purple-300 inline-block mb-6">
+          Groups i Created
+        </h2>
         {createdGroups.length === 0 ? (
-          <p>No groups created yet.</p>
+          <p className="text-gray-600">No groups created yet.</p>
         ) : (
           <div className="overflow-x-auto">
-            <table className="table w-full">
-              <thead className="bg-gray-100">
+            <table className="min-w-full divide-y divide-gray-200 shadow-md rounded-lg overflow-hidden">
+              <thead className="bg-purple-100">
                 <tr>
-                  <th>Name</th>
-                  <th>Category</th>
-                  <th>Location</th>
-                  <th>Start Date</th>
-                  <th>Actions</th>
+                  <th className="px-6 py-3 text-left text-sm font-bold text-purple-800 uppercase">Name</th>
+                  <th className="px-6 py-3 text-left text-sm font-bold text-purple-800 uppercase">Category</th>
+                  <th className="px-6 py-3 text-left text-sm font-bold text-purple-800 uppercase">Location</th>
+                  <th className="px-6 py-3 text-left text-sm font-bold text-purple-800 uppercase">Start Date</th>
+                  <th className="px-6 py-3 text-left text-sm font-bold text-purple-800 uppercase">Actions</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="bg-white divide-y divide-gray-200">
                 {createdGroups.map((group) => (
-                  <tr key={group._id}>
-                    <td>{group.name}</td>
-                    <td>{group.category}</td>
-                    <td>{group.location}</td>
-                    <td>{group.startDate}</td>
-                    <td>
+                  <tr key={group._id} className="hover:bg-purple-50 transition duration-200">
+                    <td className="px-6 py-4">{group.name}</td>
+                    <td className="px-6 py-4">{group.category}</td>
+                    <td className="px-6 py-4">{group.location}</td>
+                    <td className="px-6 py-4">{group.startDate}</td>
+                    <td className="px-6 py-4 space-x-2">
                       <button
                         onClick={() => handleDelete(group._id)}
                         className="text-red-600 hover:underline"
                       >
                         Delete
                       </button>
-                      {/* Optional: Add Update Button */}
+                      <button
+                        onClick={() => navigate(`/updateGroup/${group._id}`)}
+                        className="text-blue-600 hover:underline"
+                      >
+                        Update
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -103,33 +110,35 @@ const MyGroups = () => {
         )}
       </div>
 
-      {/* 🔹 Joined Groups */}
+      {/* Joined Groups */}
       <div>
-        <h2 className="text-2xl font-bold mb-4 text-purple-700">Groups I Joined</h2>
+        <h2 className="text-3xl font-bold text-green-800 border-b-2 border-green-300 inline-block mb-6">
+          Groups i Joined
+        </h2>
         {joinedGroups.length === 0 ? (
-          <p>You haven’t joined any groups yet.</p>
+          <p className="text-gray-600">You haven’t joined any groups yet.</p>
         ) : (
           <div className="overflow-x-auto">
-            <table className="table w-full">
-              <thead className="bg-gray-100">
+            <table className="min-w-full divide-y divide-gray-200 shadow-md rounded-lg overflow-hidden">
+              <thead className="bg-green-100">
                 <tr>
-                  <th>Name</th>
-                  <th>Category</th>
-                  <th>Location</th>
-                  <th>Start Date</th>
-                  <th>Created By</th>
-                  <th>Actions</th>
+                  <th className="px-6 py-3 text-left text-sm font-bold text-green-800 uppercase">Name</th>
+                  <th className="px-6 py-3 text-left text-sm font-bold text-green-800 uppercase">Category</th>
+                  <th className="px-6 py-3 text-left text-sm font-bold text-green-800 uppercase">Location</th>
+                  <th className="px-6 py-3 text-left text-sm font-bold text-green-800 uppercase">Start Date</th>
+                  <th className="px-6 py-3 text-left text-sm font-bold text-green-800 uppercase">Created By</th>
+                  <th className="px-6 py-3 text-left text-sm font-bold text-green-800 uppercase">Actions</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="bg-white divide-y divide-gray-200">
                 {joinedGroups.map((group) => (
-                  <tr key={group._id}>
-                    <td>{group.name}</td>
-                    <td>{group.category}</td>
-                    <td>{group.location}</td>
-                    <td>{group.startDate}</td>
-                    <td>{group.createdBy?.name || "Unknown"}</td>
-                    <td>
+                  <tr key={group._id} className="hover:bg-green-50 transition duration-200">
+                    <td className="px-6 py-4">{group.name}</td>
+                    <td className="px-6 py-4">{group.category}</td>
+                    <td className="px-6 py-4">{group.location}</td>
+                    <td className="px-6 py-4">{group.startDate}</td>
+                    <td className="px-6 py-4">{group.createdBy?.name || "Unknown"}</td>
+                    <td className="px-6 py-4">
                       <button
                         onClick={() => handleLeave(group._id)}
                         className="text-red-600 hover:underline"
