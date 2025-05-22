@@ -3,30 +3,41 @@ import { useNavigate } from "react-router-dom";
 import GroupCard from "./GroupCard";
 import LoadingSpinner from "./LoadingSpinner";
 import { Fade, Reveal } from "react-awesome-reveal";
+import ErrorBoundary from "./ErrorBoundary";
 
-const FeaturedGroups = () => {
+const FeaturedGroupsContent = () => {
   const navigate = useNavigate();
   const [featuredGroups, setFeaturedGroups] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  
+
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API}/api/featured-groups`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to load featured groups.");
-        return res.json();
-      })
-      .then((data) => {
+    const fetchFeaturedGroups = async () => {
+      try {
+        const response = await fetch("https://server-pyv6.onrender.com/api/groups");
+        console.log(response);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        if (!Array.isArray(data)) {
+          throw new Error("Invalid data format received from server");
+        }
         setFeaturedGroups(data);
+      } catch (err) {
+        console.error("Error fetching featured groups:", err);
+        setError(err.message || "Failed to load featured groups. Please try again later.");
+      } finally {
         setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
+      }
+    };
+
+    fetchFeaturedGroups();
   }, []);
 
-  const visibleGroups = featuredGroups.slice(0, 6);
+  const visibleGroups = Array.isArray(featuredGroups) ? featuredGroups.slice(0, 6) : [];
 
   return (
     <section className="py-16 bg-white dark:bg-gray-900 text-black dark:text-white transition-colors duration-300">
@@ -40,24 +51,29 @@ const FeaturedGroups = () => {
           </p>
         </div>
 
-        {/* Loader */}
         {loading && <LoadingSpinner />}
 
-        {/* Error */}
         {!loading && error && (
-          <p className="text-center text-red-500 dark:text-red-400">{error}</p>
+          <div className="text-center p-6 bg-red-50 dark:bg-red-900/20 rounded-lg max-w-2xl mx-auto">
+            <p className="text-red-600 dark:text-red-300">{error}</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="mt-4 px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700"
+            >
+              Retry
+            </button>
+          </div>
         )}
 
-        {/* Grid */}
         {!loading && !error && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {visibleGroups.length === 0 ? (
               <p className="col-span-full text-center text-gray-500 dark:text-gray-300">
-                No featured groups available.
+                No featured groups available at the moment.
               </p>
             ) : (
               visibleGroups.map((group) => (
-                <Reveal  key={group._id}>
+                <Reveal key={group._id} triggerOnce>
                   <GroupCard group={group} />
                 </Reveal>
               ))
@@ -65,7 +81,6 @@ const FeaturedGroups = () => {
           </div>
         )}
 
-        {/* View All Button */}
         {!loading && !error && featuredGroups.length > 6 && (
           <div className="mt-12 text-center">
             <button
@@ -80,5 +95,11 @@ const FeaturedGroups = () => {
     </section>
   );
 };
+
+const FeaturedGroups = () => (
+  <ErrorBoundary>
+    <FeaturedGroupsContent />
+  </ErrorBoundary>
+);
 
 export default FeaturedGroups;

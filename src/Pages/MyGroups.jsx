@@ -11,7 +11,7 @@ const MyGroups = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`${process.env.REACT_APP_API}/api/my-groups?email=${user.email}`)
+      fetch(`https://server-pyv6.onrender.com/api/my-groups?email=${user.email}`)
         .then(res => res.json())
         .then(data => setCreatedGroups(data))
         .catch(err => console.error("Fetch error (created):", err));
@@ -20,7 +20,7 @@ const MyGroups = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`${process.env.REACT_APP_API}/api/joined-groups?email=${user.email}`)
+      fetch(`https://server-pyv6.onrender.com/api/joined-groups?email=${user.email}`)
         .then(res => res.json())
         .then(data => setJoinedGroups(data))
         .catch(err => console.error("Fetch error (joined):", err));
@@ -30,7 +30,7 @@ const MyGroups = () => {
   const handleDelete = async (id) => {
     if (!confirm("Are you sure you want to delete this group?")) return;
 
-    const res = await fetch(`${process.env.REACT_APP_API}/api/group/${id}`, {
+    const res = await fetch(`https://server-pyv6.onrender.com/api/group/${id}`, {
       method: "DELETE",
     });
     const data = await res.json();
@@ -45,7 +45,7 @@ const MyGroups = () => {
   const handleLeave = async (id) => {
     if (!confirm("Leave this group?")) return;
 
-    const res = await fetch(`${process.env.REACT_APP_API}/api/group/leave/${id}`, {
+    const res = await fetch(`https://server-pyv6.onrender.com/api/group/leave/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email: user.email }),

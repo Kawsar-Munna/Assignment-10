@@ -28,7 +28,7 @@ const GroupCard = ({ group }) => {
     };
   
     try {
-      const res = await fetch(`http://localhost:5000/api/group/join/${group._id}`, {
+      const res = await fetch(`https://server-pyv6.onrender.com/api/group/join/${group._id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json"
@@ -48,6 +48,7 @@ const GroupCard = ({ group }) => {
         toast.error(data.error || "Failed to join group");
       }
     } catch (error) {
+    
       toast.error("Server error. Try again later.");
     }
   };

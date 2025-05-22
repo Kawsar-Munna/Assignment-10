@@ -30,7 +30,7 @@ const Login = () => {
     try {
       await signInWithEmailAndPassword(auth, form.email, form.password);
       toast.success("Logged in successfully!");
-      navigate(location.state?.from?.pathname || "/");
+      navigate(location.state?.from?.pathname || "/");// where user was trying to go
     } catch (err) {
       toast.error(err.message);
     }

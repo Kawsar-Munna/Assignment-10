@@ -10,7 +10,7 @@ const UpdateGroup = () => {
   const [group, setGroup] = useState(null);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API}/api/group/${id}`)
+    fetch(`https://server-pyv6.onrender.com/api/group/${id}`)
       .then(res => res.json())
       .then(data => {
         const formattedData = {
@@ -39,7 +39,7 @@ const UpdateGroup = () => {
     
 
     try {
-      const res = await fetch(`${process.env.REACT_APP_API}/api/group/${id}`, {
+      const res = await fetch(`https://server-pyv6.onrender.com/api/group/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedGroup)

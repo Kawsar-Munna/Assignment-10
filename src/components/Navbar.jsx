@@ -34,7 +34,7 @@ const Navbar = () => {
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
           <Link to="/" className="flex-shrink-0 text-2xl font-['Pacifico'] text-primary">
-            <img src="src/assets/Log.svg" alt="i cant see" className="w-[130px] h-[130px] object-contain mt-[16px]" />
+            <img src="../../src/assets/Log.svg" alt="HobbyHub" className="w-[130px] h-[130px] object-contain mt-[16px]" />
           </Link>
 
           {/* Desktop Menu */}

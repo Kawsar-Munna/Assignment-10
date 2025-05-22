@@ -25,7 +25,7 @@ const Home = () => {
     <div className="pt-16 bg-white dark:bg-gray-900 text-black dark:text-white min-h-screen transition-colors duration-300 relative">
       
       {/* Theme Toggle Button */}
-      <div className="fixed top-4 right-20 lg:right-[280px] z-50">
+      <div className="fixed top-4 right-20 lg:right-[280px] md:right-[260px] z-50">
         <ThemeToggle />
       </div>
 
