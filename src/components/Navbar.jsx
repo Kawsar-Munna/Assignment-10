@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import { toast } from "react-toastify";
 import { Fade } from "react-awesome-reveal";
-
+import logo from "../../src/assets/Log.svg";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, logout } = useContext(AuthContext);
@@ -34,7 +34,7 @@ const Navbar = () => {
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
           <Link to="/" className="flex-shrink-0 text-2xl font-['Pacifico'] text-primary">
-            <img src="../../src/assets/Log.svg" alt="HobbyHub" className="w-[130px] h-[130px] object-contain mt-[16px]" />
+            <img src={logo} alt="HobbyHub" className="w-[130px] h-[130px] object-contain mt-[16px]" />
           </Link>
 
           {/* Desktop Menu */}
