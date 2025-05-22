@@ -11,7 +11,7 @@ const FeaturedGroups = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/featured-groups")
+    fetch(`${process.env.REACT_APP_API}/api/featured-groups`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to load featured groups.");
         return res.json();
