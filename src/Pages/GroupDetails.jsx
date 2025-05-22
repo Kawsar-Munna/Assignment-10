@@ -10,7 +10,7 @@ const GroupDetails = () => {
   const [joined, setJoined] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/group/${id}`)
+    fetch(`${process.env.REACT_APP_API}/api/group/${id}`)
       .then(res => res.json())
       .then(data => {
         setGroup(data);
@@ -22,7 +22,7 @@ const GroupDetails = () => {
 
   const handleJoin = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/group/join/${id}`, {
+      const res = await fetch(`${process.env.REACT_APP_API}/api/group/join/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: user.email }),

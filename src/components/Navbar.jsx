@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import { toast } from "react-toastify";
+import { Fade } from "react-awesome-reveal";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -49,9 +50,15 @@ const Navbar = () => {
             {!user ? (
               <>
                 <Link to="/login">
-                  <button className="bg-white text-primary border border-primary px-4 py-2 text-sm rounded-button hover:bg-gray-50">
+                  {/* <button className="bg-white text-primary border border-primary px-4 py-2 text-sm rounded-button hover:bg-gray-50 ">
                     Log in
-                  </button>
+                  </button> */}
+                  <Fade direction="left">
+                    <button className="bg-white text-primary border border-primary px-4 py-2 text-sm rounded-button hover:bg-gray-50 ">
+                      Log in
+                    </button>
+                  </Fade>
+
                 </Link>
                 <Link to="/register">
                   <button className="bg-primary text-white px-4 py-2 text-sm rounded-button hover:bg-primary/90">

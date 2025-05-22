@@ -18,6 +18,7 @@ import NotFound from "./Pages/NotFound";
 
 function App() {
   return (
+    
     <Router>
       <AuthProvider>
         <Navbar />

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import GroupCard from "./GroupCard";
 import LoadingSpinner from "./LoadingSpinner";
+import { Fade, Reveal } from "react-awesome-reveal";
 
 const FeaturedGroups = () => {
   const navigate = useNavigate();
@@ -56,7 +57,9 @@ const FeaturedGroups = () => {
               </p>
             ) : (
               visibleGroups.map((group) => (
-                <GroupCard key={group._id} group={group} />
+                <Reveal  key={group._id}>
+                  <GroupCard group={group} />
+                </Reveal>
               ))
             )}
           </div>
