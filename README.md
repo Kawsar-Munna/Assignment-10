@@ -1,4 +1,5 @@
 # 🎨 HobbyHub – Local Hobby Group Organizer
+![image](https://github.com/user-attachments/assets/4ff4efa9-669e-4ae0-926d-e1ff1462c801)
 
 **HobbyHub** is a full-stack MERN application that lets users discover, create, join, and manage local hobby-based groups. Whether it's painting, hiking, gaming, or cooking — HobbyHub connects people through shared passions.
 
